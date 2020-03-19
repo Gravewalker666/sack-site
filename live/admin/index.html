@@ -314,8 +314,9 @@
 
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -323,4 +324,130 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script>
+    $.ajax({
+        type: 'post',
+        url: 'https://sack-live-score.herokuapp.com/user-status',
+        dataType: 'json',
+        error: function () {
+            window.location.href = "login.html";
+        }
+    })
+
+    $('#button').click(function () {
+        let status = $('#match-status').val();
+
+        let t1_fi_runs = $('#t1-fi-runs').val();
+        let t1_fi_overs = $('#t1-fi-overs').val();
+        let t1_fi_balls = $('#t1-fi-balls').val();
+        let t1_fi_wickets = $('#t1-fi-wickets').val();
+        let t1_fi_b1 = $('#t1-fi-b1').val();
+        let t1_fi_b1_status = $('#t1-fi-b1-status').is(':checked');
+        let t1_fi_b2 = $('#t1-fi-b2').val();
+        let t1_fi_b2_status = $('#t1-fi-b2-status').is(':checked');
+        let t1_fi_status = $('#t1-fi').is(':checked');
+
+        let t2_fi_runs = $('#t2-fi-runs').val();
+        let t2_fi_overs = $('#t2-fi-overs').val();
+        let t2_fi_balls = $('#t2-fi-balls').val();
+        let t2_fi_wickets = $('#t2-fi-wickets').val();
+        let t2_fi_b1 = $('#t2-fi-b1').val();
+        let t2_fi_b1_status = $('#t2-fi-b1-status').is(':checked');
+        let t2_fi_b2 = $('#t2-fi-b2').val();
+        let t2_fi_b2_status = $('#t2-fi-b2-status').is(':checked');
+        let t2_fi_status = $('#t2-fi').is(':checked');
+
+        let t1_si_runs = $('#t1-si-runs').val();
+        let t1_si_overs = $('#t1-si-overs').val();
+        let t1_si_balls = $('#t1-si-balls').val();
+        let t1_si_wickets = $('#t1-si-wickets').val();
+        let t1_si_b1 = $('#t1-si-b1').val();
+        let t1_si_b1_status = $('#t1-si-b1-status').is(':checked');
+        let t1_si_b2 = $('#t1-si-b2').val();
+        let t1_si_b2_status = $('#t1-si-b2-status').is(':checked');
+        let t1_si_status = $('#t1-si').is(':checked');
+
+        let t2_si_runs = $('#t2-si-runs').val();
+        let t2_si_overs = $('#t2-si-overs').val();
+        let t2_si_balls = $('#t2-si-balls').val();
+        let t2_si_wickets = $('#t2-si-wickets').val();
+        let t2_si_b1 = $('#t2-si-b1').val();
+        let t2_si_b1_status = $('#t2-si-b1-status').is(':checked');
+        let t2_si_b2 = $('#t2-si-b2').val();
+        let t2_si_b2_status = $('#t2-si-b2-status').is(':checked');
+        let t2_si_status = $('#t2-si').is(':checked');
+
+        $.ajax({
+            type: 'post',
+            url: 'https://sack-live-score.herokuapp.com/update-test-match',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "status": status,
+                "teamOneFirstInning": {
+                    "score": t1_fi_runs,
+                    "overs": t1_fi_overs,
+                    "balls": t1_fi_balls,
+                    "wickets":t1_fi_wickets,
+                    "playerOne": {
+                        "name": t1_fi_b1,
+                        "isBatting": t1_fi_b1_status
+                    },
+                    "playerTwo": {
+                        "name": t1_fi_b2,
+                        "isBatting": t1_fi_b2_status
+                    },
+                    "currentInning": t1_fi_status
+                },
+                "teamTwoFirstInning": {
+                    "score": t2_fi_runs,
+                    "overs": t2_fi_overs,
+                    "balls": t2_fi_balls,
+                    "wickets": t2_fi_wickets,
+                    "playerOne": {
+                        "name": t2_fi_b1,
+                        "isBatting": t2_fi_b1_status
+                    },
+                    "playerTwo": {
+                        "name": t2_fi_b2,
+                        "isBatting": t2_fi_b2_status
+                    },
+                    "currentInning": t2_fi_status
+                },
+                "teamOneSecondInning": {
+                    "score": t1_si_runs,
+                    "overs": t1_si_overs,
+                    "balls": t1_si_balls,
+                    "wickets": t1_si_wickets,
+                    "playerOne": {
+                        "name": t1_si_b1,
+                        "isBatting": t1_si_b1_status
+                    },
+                    "playerTwo": {
+                        "name": t1_si_b2,
+                        "isBatting": t1_si_b2_status
+                    },
+                    "currentInning": t1_si_status
+                },
+                "teamTwoSecondInning": {
+                    "score": t2_si_runs,
+                    "overs": t2_si_overs,
+                    "balls": t2_si_balls,
+                    "wickets": t2_si_wickets,
+                    "playerOne": {
+                        "name": t2_si_b1,
+                        "isBatting": t2_si_b1_status
+                    },
+                    "playerTwo": {
+                        "name": t2_si_b2,
+                        "isBatting": t2_si_b2_status
+                    },
+                    "currentInning": t2_si_status
+                }
+            }),
+            success: function (data) {
+                console.log(data)
+            },
+        })
+    })
+</script>
 </html>
